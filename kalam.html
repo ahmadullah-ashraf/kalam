@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalam</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1a1d21;--mut:#6b7280;--pri:#2563eb;--red:#dc2626;--bd:#e5e7eb}
+@media(prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#1a1d23;--tx:#e8eaed;--mut:#9aa0a9;--pri:#5b8def;--red:#f06161;--bd:#2a2e36}}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,"Noto Sans Bengali",sans-serif;background:var(--bg);color:var(--tx)}
+.wrap{max-width:520px;margin:0 auto;padding:16px}
+h1{margin:0 0 12px;font-size:22px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
+input{width:100%;padding:10px;margin:6px 0;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font-size:16px}
+button{padding:8px 12px;border:0;border-radius:8px;background:var(--pri);color:#fff;font-size:14px;cursor:pointer}
+button.g{background:transparent;color:var(--mut);border:1px solid var(--bd)}
+button.r{background:var(--red)}
+button.w{width:100%;padding:11px;font-size:16px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.row .acts{display:flex;gap:6px;flex-shrink:0}
+.tabs{display:flex;gap:6px;margin:10px 0}
+.tabs button{flex:1;background:var(--card);color:var(--tx);border:1px solid var(--bd)}
+.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.mut{color:var(--mut);font-size:13px}
+.err{color:var(--red);font-size:14px;margin:6px 0}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Kalam</h1>
+
+  <div id="auth" class="card hide">
+    <div id="signupFields" class="hide">
+      <input id="fn" placeholder="পুরো নাম">
+      <input id="bd" type="date" aria-label="জন্ম তারিখ">
+      <input id="ph" type="tel" placeholder="ফোন (ঐচ্ছিক)">
+    </div>
+    <input id="em" type="email" placeholder="ইমেইল">
+    <input id="pw" type="password" placeholder="পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)">
+    <div id="msg" class="err"></div>
+    <button class="w" id="go">লগইন</button>
+    <p class="mut" style="text-align:center"><a href="#" id="sw" style="color:var(--pri)">নতুন অ্যাকাউন্ট খুলুন</a></p>
+  </div>
+
+  <div id="app" class="hide">
+    <div class="row"><span id="who" class="mut"></span><button class="g" id="out">লগআউট</button></div>
+    <div class="tabs" id="tabs">
+      <button data-t="people" class="on">মানুষ</button>
+      <button data-t="req">অনুরোধ <span id="rc"></span></button>
+      <button data-t="friends">বন্ধু</button>
+      <button data-t="blocked">ব্লক</button>
+    </div>
+    <input id="q" placeholder="নাম দিয়ে খুঁজুন">
+    <div id="list"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script>
+// ====== এখানে নিজের Supabase তথ্য বসান (Project Settings → API) ======
+const SUPABASE_URL = "https://hoccztijjukcqveovylf.supabase.co";
+const SUPABASE_KEY = "sb_publishable_-yObqa6OnouCOhpMxZ6H9w_6PKClrsQ";
+// =====================================================================
+
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+let me = null, people = [], fr = [], bl = [], tab = "people", signup = false;
+
+// ---------- অথ ----------
+function setMode(s) {
+  signup = s;
+  $("#signupFields").classList.toggle("hide", !s);
+  $("#go").textContent = s ? "অ্যাকাউন্ট খুলুন" : "লগইন";
+  $("#sw").textContent = s ? "আগে থেকেই অ্যাকাউন্ট আছে? লগইন" : "নতুন অ্যাকাউন্ট খুলুন";
+  $("#msg").textContent = "";
+}
+$("#sw").onclick = e => { e.preventDefault(); setMode(!signup); };
+
+$("#go").onclick = async () => {
+  const email = $("#em").value.trim(), password = $("#pw").value;
+  const msg = t => $("#msg").textContent = t;
+  if (!email || password.length < 6) return msg("ইমেইল ও কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড দিন");
+  if (signup) {
+    const full_name = $("#fn").value.trim(), birth_date = $("#bd").value;
+    if (full_name.length < 2 || full_name.length > 60) return msg("নাম ২ থেকে ৬০ অক্ষরের মধ্যে হতে হবে");
+    if (!birth_date) return msg("জন্ম তারিখ দিন");
+    const { data, error } = await db.auth.signUp({
+      email, password,
+      options: { data: { full_name, birth_date, phone: $("#ph").value.trim() || null } }
+    });
+    if (error) return msg(error.message);
+    if (!data.session) return msg("ইমেইলে পাঠানো লিংকে ক্লিক করে নিশ্চিত করুন, তারপর লগইন করুন।");
+  } else {
+    const { error } = await db.auth.signInWithPassword({ email, password });
+    if (error) return msg("ইমেইল বা পাসওয়ার্ড ভুল");
+  }
+};
+
+$("#out").onclick = () => db.auth.signOut();
+
+db.auth.onAuthStateChange((_e, session) => {
+  me = session?.user ?? null;
+  $("#auth").classList.toggle("hide", !!me);
+  $("#app").classList.toggle("hide", !me);
+  if (me) load();
+});
+
+// ---------- ডাটা ----------
+async function load() {
+  const [p, f, b] = await Promise.all([
+    db.from("profiles").select("id,full_name").neq("id", me.id).order("full_name"),
+    db.from("friendships").select("*"),
+    db.from("blocks").select("blocked_id")
+  ]);
+  people = p.data || []; fr = f.data || []; bl = (b.data || []).map(x => x.blocked_id);
+  const mine = await db.from("profiles").select("full_name").eq("id", me.id).single();
+  $("#who").textContent = mine.data?.full_name || me.email;
+  db.from("profiles").update({ last_seen_at: new Date().toISOString() }).eq("id", me.id);
+  render();
+}
+
+const rel = id => fr.find(x => (x.requester_id === me.id && x.addressee_id === id) || (x.addressee_id === me.id && x.requester_id === id));
+const nameOf = id => people.find(p => p.id === id)?.full_name || "অজানা";
+
+// ---------- UI ----------
+function item(name, btns) {
+  return `<div class="card row"><b>${esc(name)}</b><div class="acts">${btns}</div></div>`;
+}
+const B = (act, id, label, cls = "") => `<button class="${cls}" data-a="${act}" data-id="${esc(id)}">${label}</button>`;
+
+function render() {
+  const q = $("#q").value.trim().toLowerCase();
+  const hit = n => !q || n.toLowerCase().includes(q);
+  let h = "";
+  const incoming = fr.filter(x => x.status === "pending" && x.addressee_id === me.id && !bl.includes(x.requester_id));
+  $("#rc").textContent = incoming.length ? `(${incoming.length})` : "";
+
+  if (tab === "people") {
+    people.filter(p => !bl.includes(p.id) && hit(p.full_name)).forEach(p => {
+      const r = rel(p.id);
+      let b = B("add", p.id, "অনুরোধ পাঠান");
+      if (r?.status === "accepted") b = `<span class="mut">বন্ধু</span>`;
+      else if (r?.requester_id === me.id) b = `<span class="mut">পাঠানো হয়েছে</span>`;
+      else if (r) b = B("acc", r.id, "গ্রহণ");
+      h += item(p.full_name, b + B("blk", p.id, "ব্লক", "g"));
+    });
+  } else if (tab === "req") {
+    incoming.forEach(x => h += item(nameOf(x.requester_id), B("acc", x.id, "গ্রহণ") + B("del", x.id, "বাদ", "g")));
+  } else if (tab === "friends") {
+    fr.filter(x => x.status === "accepted").forEach(x => {
+      const o = x.requester_id === me.id ? x.addressee_id : x.requester_id;
+      if (hit(nameOf(o)) && !bl.includes(o)) h += item(nameOf(o), B("del", x.id, "বন্ধুত্ব শেষ", "g") + B("blk", o, "ব্লক", "r"));
+    });
+  } else {
+    bl.forEach(id => h += item(nameOf(id), B("unb", id, "আনব্লক", "g")));
+  }
+  $("#list").innerHTML = h || `<p class="mut">কিছু নেই</p>`;
+}
+
+$("#tabs").onclick = e => {
+  const t = e.target.closest("button")?.dataset.t; if (!t) return;
+  tab = t;
+  document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.t === t));
+  render();
+};
+$("#q").oninput = render;
+
+$("#list").onclick = async e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const { a, id } = b.dataset;
+  b.disabled = true;
+  let r;
+  if (a === "add") r = await db.from("friendships").insert({ requester_id: me.id, addressee_id: id });
+  else if (a === "acc") r = await db.from("friendships").update({ status: "accepted" }).eq("id", id);
+  else if (a === "del") r = await db.from("friendships").delete().eq("id", id);
+  else if (a === "blk") {
+    if (!confirm("ব্লক করবেন?")) { b.disabled = false; return; }
+    const f = rel(id);
+    if (f) await db.from("friendships").delete().eq("id", f.id);
+    r = await db.from("blocks").insert({ blocker_id: me.id, blocked_id: id });
+  } else if (a === "unb") r = await db.from("blocks").delete().eq("blocker_id", me.id).eq("blocked_id", id);
+  if (r?.error) alert("সমস্যা: " + r.error.message);
+  load();
+};
+
+setMode(false);
+</script>
+</body>
+</html>
