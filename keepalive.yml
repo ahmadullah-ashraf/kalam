@@ -1,0 +1,13 @@
+name: keepalive
+on:
+  schedule:
+    - cron: '0 3 * * 1,4'
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          curl -s -o /dev/null -w "%{http_code}\n" "https://hoccztijjukcqveovylf.supabase.co/rest/v1/announcements?select=id&limit=1" \
+            -H "apikey: sb_publishable_-yObqa6OnouCOhpMxZ6H9w_6PKClrsQ" || true

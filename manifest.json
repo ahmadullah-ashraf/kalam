@@ -1,0 +1,10 @@
+{
+  "name": "কালাম",
+  "short_name": "কালাম",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f5c4d",
+  "theme_color": "#0f5c4d",
+  "icons": [{"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]
+}

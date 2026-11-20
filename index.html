@@ -2,192 +2,204 @@
 <html lang="bn">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kalam</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f5c4d">
+<title>কালাম</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
 <style>
-:root{--bg:#f6f7f9;--card:#fff;--tx:#1a1d21;--mut:#6b7280;--pri:#2563eb;--red:#dc2626;--bd:#e5e7eb}
-@media(prefers-color-scheme:dark){:root{--bg:#0f1115;--card:#1a1d23;--tx:#e8eaed;--mut:#9aa0a9;--pri:#5b8def;--red:#f06161;--bd:#2a2e36}}
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,"Noto Sans Bengali",sans-serif;background:var(--bg);color:var(--tx)}
-.wrap{max-width:520px;margin:0 auto;padding:16px}
-h1{margin:0 0 12px;font-size:22px}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:12px;margin-bottom:10px}
-input{width:100%;padding:10px;margin:6px 0;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font-size:16px}
-button{padding:8px 12px;border:0;border-radius:8px;background:var(--pri);color:#fff;font-size:14px;cursor:pointer}
-button.g{background:transparent;color:var(--mut);border:1px solid var(--bd)}
-button.r{background:var(--red)}
-button.w{width:100%;padding:11px;font-size:16px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.row .acts{display:flex;gap:6px;flex-shrink:0}
-.tabs{display:flex;gap:6px;margin:10px 0}
-.tabs button{flex:1;background:var(--card);color:var(--tx);border:1px solid var(--bd)}
-.tabs button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
-.mut{color:var(--mut);font-size:13px}
-.err{color:var(--red);font-size:14px;margin:6px 0}
-.hide{display:none}
+:root{--g:#0f5c4d;--g2:#14806a;--gold:#c9a24a;--bg:#f6f4ec;--card:#fff;--tx:#1d2a26;--mu:#6b7a74;--bd:#e3dfd0;--me:#d9f2e6;--er:#c0392b}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1714;--card:#16221e;--tx:#e8efec;--mu:#8fa19a;--bd:#263631;--me:#17493c}}
+*{box-sizing:border-box;margin:0}[hidden]{display:none!important}
+html,body{height:100%}
+body{font-family:"Noto Sans Bengali","Kalpurush",system-ui,sans-serif;background:var(--bg);color:var(--tx);font-size:15px}
+#app{display:flex;flex-direction:column;height:100%;padding-top:env(safe-area-inset-top)}
+header{background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;padding:12px 16px;font-weight:700;font-size:18px}
+.logo{display:flex;align-items:center;gap:8px;color:#f3d98b}
+main{flex:1;overflow-y:auto;padding:10px}
+nav{display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;background:none;border:0;color:var(--mu);display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;position:relative;font:inherit}
+nav button.on{color:var(--g2)}nav small{font-size:11px}
+.dot{position:absolute;top:6px;left:56%;width:9px;height:9px;border-radius:50%;background:var(--er)}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);font:inherit;margin:6px 0}
+.b{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;font:inherit;font-weight:700;margin:6px 0}
+.b.o{background:none;border:1px solid var(--er);color:var(--er)}
+.sm{padding:6px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit;font-size:13px}
+.row{display:flex;align-items:center;gap:12px;padding:10px;background:var(--card);border-radius:14px;margin-bottom:8px;border:1px solid var(--bd)}
+.gr{flex:1;min-width:0}.gr small{display:block;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{border-radius:50%;object-fit:cover;background:linear-gradient(135deg,var(--g2),var(--gold));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
+.cnt{background:var(--g2);color:#fff;border-radius:12px;padding:2px 8px;font-size:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:8px}
+.card small{color:var(--mu);display:block}.card p{margin:6px 0;white-space:pre-wrap}
+.ac{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.ac select{width:auto;margin:0;padding:6px}
+.tag{background:var(--me);color:var(--g2);border-radius:8px;padding:2px 8px;font-size:12px;display:inline-block}.tag.rd{background:#f8d7d3;color:var(--er)}
+.em{text-align:center;color:var(--mu);padding:30px 10px}.mu{color:var(--mu);text-align:center;margin:10px 0}
+h3{margin:10px 0 6px;font-size:15px;color:var(--g2)}
+.st{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto}.st button{padding:8px 14px;border-radius:20px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit;white-space:nowrap}.st .on{background:var(--g2);color:#fff}
+.au{max-width:420px;margin:0 auto;padding:30px 20px}.au h1{color:var(--g2);text-align:center;font-size:34px}.au h2{margin:14px 0 6px}.au a{display:block;text-align:center;color:var(--g2);margin:10px 0;cursor:pointer}
+.msg{color:var(--er);min-height:20px;font-size:14px}
+.pf{display:flex;flex-direction:column;align-items:center;gap:6px;padding:10px;position:relative}.pf>*{max-width:340px}
+.cam{position:absolute;margin-left:70px;margin-top:62px;background:var(--gold);color:#fff;border-radius:50%;padding:7px;display:flex}
+#ov{position:fixed;inset:0;z-index:20;display:none}#ov.on{display:block}
+.scr{display:flex;flex-direction:column;height:100%;background:var(--bg);padding-top:env(safe-area-inset-top)}
+.hd{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--g);color:#fff}
+.ib{background:none;border:0;color:inherit;padding:6px;display:flex}
+.ms{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:6px}
+.bb{max-width:80%;align-self:flex-start;background:var(--card);border:1px solid var(--bd);padding:8px 12px;border-radius:16px 16px 16px 4px;white-space:pre-wrap;word-break:break-word}
+.bb.me{align-self:flex-end;background:var(--me);border-radius:16px 16px 4px 16px}
+.bb small{display:flex;gap:6px;justify-content:flex-end;color:var(--mu);font-size:11px;margin-top:2px;align-items:center}
+.cb{display:flex;gap:6px;padding:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--bd);align-items:center}.cb input{margin:0;flex:1}
+.sn{background:var(--g2);color:#fff;border:0;border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center}
+.ep{display:grid;grid-template-columns:repeat(8,1fr);background:var(--card);padding:6px;max-height:150px;overflow:auto}.ep button{background:none;border:0;font-size:22px;padding:4px}
+#sh{position:fixed;inset:0;z-index:30;display:none;background:rgba(0,0,0,.45);align-items:flex-end}#sh.on{display:flex}
+.sheet{background:var(--bg);width:100%;max-height:85%;overflow:auto;border-radius:20px 20px 0 0;padding:18px;padding-bottom:calc(18px + env(safe-area-inset-bottom));text-align:center}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:12px;z-index:99;max-width:90%}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Kalam</h1>
-
-  <div id="auth" class="card hide">
-    <div id="signupFields" class="hide">
-      <input id="fn" placeholder="পুরো নাম">
-      <input id="bd" type="date" aria-label="জন্ম তারিখ">
-      <input id="ph" type="tel" placeholder="ফোন (ঐচ্ছিক)">
-    </div>
-    <input id="em" type="email" placeholder="ইমেইল">
-    <input id="pw" type="password" placeholder="পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)">
-    <div id="msg" class="err"></div>
-    <button class="w" id="go">লগইন</button>
-    <p class="mut" style="text-align:center"><a href="#" id="sw" style="color:var(--pri)">নতুন অ্যাকাউন্ট খুলুন</a></p>
-  </div>
-
-  <div id="app" class="hide">
-    <div class="row"><span id="who" class="mut"></span><button class="g" id="out">লগআউট</button></div>
-    <div class="tabs" id="tabs">
-      <button data-t="people" class="on">মানুষ</button>
-      <button data-t="req">অনুরোধ <span id="rc"></span></button>
-      <button data-t="friends">বন্ধু</button>
-      <button data-t="blocked">ব্লক</button>
-    </div>
-    <input id="q" placeholder="নাম দিয়ে খুঁজুন">
-    <div id="list"></div>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<div id="app"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.js"></script>
 <script>
-// ====== এখানে নিজের Supabase তথ্য বসান (Project Settings → API) ======
-const SUPABASE_URL = "https://hoccztijjukcqveovylf.supabase.co";
-const SUPABASE_KEY = "sb_publishable_-yObqa6OnouCOhpMxZ6H9w_6PKClrsQ";
-// =====================================================================
+const URL_='https://hoccztijjukcqveovylf.supabase.co',KEY='sb_publishable_-yObqa6OnouCOhpMxZ6H9w_6PKClrsQ';
+const sb=supabase.createClient(URL_,KEY);
+let me=null,tab='chats',chatWith=null,pend={},P={},rt=[],at='users',AU=[];
+const q=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toast=m=>{const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),3200)};
+const tm=d=>new Date(d).toLocaleTimeString('bn-BD',{hour:'2-digit',minute:'2-digit'});
+const dt=d=>new Date(d).toLocaleString('bn-BD',{dateStyle:'short',timeStyle:'short'});
+const IC={chat:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/>',user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',video:'<path d="M23 7l-7 5 7 5z"/><rect x="1" y="5" width="15" height="14" rx="2"/>',send:'<path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/>',smile:'<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',back:'<path d="M15 18l-6-6 6-6"/>',flag:'<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/>',trash:'<path d="M3 6h18M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>',ban:'<circle cx="12" cy="12" r="10"/><path d="M4.9 4.9l14.2 14.2"/>',check:'<path d="M20 6L9 17l-5-5"/>',plus:'<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6M23 11h-6"/>',camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',x:'<path d="M18 6L6 18M6 6l12 12"/>'};
+const ic=(n,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
+const AVP=URL_+'/storage/v1/object/public/avatars/';
+const av=(p,s=44)=>p&&p.avatar_url&&p.avatar_url.startsWith(AVP)?`<img class="av" style="width:${s}px;height:${s}px" src="${esc(p.avatar_url)}" alt="">`:`<div class="av" style="width:${s}px;height:${s}px;font-size:${s*.42}px">${esc((p?.full_name||'?').trim().charAt(0))}</div>`;
+async function lp(ids){const n=[...new Set(ids)].filter(i=>i&&!P[i]);if(!n.length)return;const {data}=await sb.from('profiles').select('id,full_name,avatar_url,role,status').in('id',n);(data||[]).forEach(p=>P[p.id]=p)}
+const soon=()=>toast('অডিও/ভিডিও কল শীঘ্রই আসছে, ইনশাআল্লাহ');
 
-const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-const $ = s => document.querySelector(s);
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+/* ---------- অথ ---------- */
+function auth(mode='login',msg=''){
+const em='<input id=e type=email placeholder="ইমেইল" autocomplete=email>',pw=ph=>`<input id=p type=password placeholder="${ph||'পাসওয়ার্ড'}" autocomplete=current-password>`;
+const F={
+login:`<h2>লগইন</h2>${em}${pw()}<button class=b onclick=doLogin()>লগইন</button><a onclick="auth('forgot')">পাসওয়ার্ড ভুলে গেছেন?</a><a onclick="auth('register')">নতুন অ্যাকাউন্ট খুলুন</a>`,
+register:`<h2>নতুন অ্যাকাউন্ট</h2><input id=n placeholder="পূর্ণ নাম" maxlength=60><label class=mu>জন্মতারিখ</label><input id=d type=date max="${new Date().toISOString().slice(0,10)}">${em}${pw('পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর)')}<button class=b onclick=doReg()>রেজিস্ট্রেশন</button><a onclick="auth()">আগেই অ্যাকাউন্ট আছে? লগইন</a>`,
+otp:`<h2>ইমেইল যাচাই</h2><input id=c inputmode=numeric placeholder="ইমেইলের কোড" maxlength=8><button class=b onclick=doOtp()>যাচাই করুন</button><a onclick="resend()">নতুন কোড পাঠান</a>`,
+forgot:`<h2>পাসওয়ার্ড রিকভারি</h2>${em}<button class=b onclick=doForgot()>কোড পাঠান</button><a onclick="auth()">ফিরে যান</a>`,
+rec:`<h2>কোড দিন</h2><input id=c inputmode=numeric placeholder="ইমেইলের কোড" maxlength=8><button class=b onclick=doRec()>যাচাই করুন</button>`,
+newpass:`<h2>নতুন পাসওয়ার্ড</h2>${pw('নতুন পাসওয়ার্ড (কমপক্ষে ৮)')}<button class=b onclick=doNew()>সেভ করুন</button>`};
+q('#app').innerHTML=`<div class=au><h1>কালাম</h1><p class=mu>নিরাপদ ও ন্যায্য আলাপের জায়গা</p>${F[mode]}<p class=msg id=msg>${esc(msg)}</p></div>`}
+const setMsg=m=>q('#msg').textContent=m;
+async function doLogin(){const email=q('#e').value.trim(),password=q('#p').value;const {error}=await sb.auth.signInWithPassword({email,password});
+if(error){if(/not confirmed/i.test(error.message)){pend={email};await sb.auth.resend({type:'signup',email});return auth('otp','ইমেইল যাচাই হয়নি। নতুন কোড পাঠানো হয়েছে।')}return setMsg('ইমেইল বা পাসওয়ার্ড ভুল')}boot()}
+async function doReg(){const n=q('#n').value.trim(),b=q('#d').value,email=q('#e').value.trim(),password=q('#p').value;
+const lim=new Date();lim.setFullYear(lim.getFullYear()-13);
+if(n.length<2)return setMsg('নাম লিখুন');if(!b)return setMsg('জন্মতারিখ দিন');if(new Date(b)>lim)return setMsg('ন্যূনতম বয়স ১৩ বছর');
+if(!email)return setMsg('ইমেইল দিন');if(password.length<8)return setMsg('পাসওয়ার্ড কমপক্ষে ৮ অক্ষর');
+const {error}=await sb.auth.signUp({email,password,options:{data:{full_name:n,birth_date:b}}});
+if(error)return setMsg(error.message);pend={email};auth('otp','আপনার ইমেইলে কোড পাঠানো হয়েছে (স্প্যামও দেখুন)')}
+async function resend(){const {error}=await sb.auth.resend({type:'signup',email:pend.email});setMsg(error?error.message:'নতুন কোড পাঠানো হয়েছে')}
+async function doOtp(){const {error}=await sb.auth.verifyOtp({email:pend.email,token:q('#c').value.trim(),type:'signup'});if(error)return setMsg('কোড ভুল বা মেয়াদ শেষ');boot()}
+async function doForgot(){const email=q('#e').value.trim();if(!email)return setMsg('ইমেইল দিন');const {error}=await sb.auth.resetPasswordForEmail(email);if(error)return setMsg(error.message);pend={email};auth('rec','কোড পাঠানো হয়েছে')}
+async function doRec(){const {error}=await sb.auth.verifyOtp({email:pend.email,token:q('#c').value.trim(),type:'recovery'});if(error)return setMsg('কোড ভুল বা মেয়াদ শেষ');auth('newpass')}
+async function doNew(){const p=q('#p').value;if(p.length<8)return setMsg('কমপক্ষে ৮ অক্ষর');const {error}=await sb.auth.updateUser({password:p});if(error)return setMsg(error.message);boot()}
+async function out(){rt.forEach(c=>sb.removeChannel(c));await sb.auth.signOut();me=null;P={};auth()}
 
-let me = null, people = [], fr = [], bl = [], tab = "people", signup = false;
+/* ---------- বুট ---------- */
+async function boot(){const {data:{session}}=await sb.auth.getSession();if(!session)return auth();
+const {data:p,error}=await sb.from('profiles').select('*').eq('id',session.user.id).single();
+if(error||!p){await sb.auth.signOut();return auth('login','প্রোফাইল পাওয়া যায়নি')}
+if(p.status==='suspended'){await sb.auth.signOut();return auth('login','আপনার অ্যাকাউন্ট সাসপেন্ড করা হয়েছে। এডমিনের সাথে যোগাযোগ করুন।')}
+me=p;P[p.id]=p;sb.from('profiles').update({last_seen_at:new Date().toISOString()}).eq('id',me.id).then(()=>{});
+shell();go('chats');listen()}
+function shell(){const staff=me.role!=='user';const T=[['chats','chat','চ্যাট'],['friends','users','বন্ধু'],['notices','bell','ঘোষণা'],['me','user','প্রোফাইল']];if(staff)T.push(['admin','shield','এডমিন']);
+q('#app').innerHTML=`<header><span class=logo>${ic('chat',20)} কালাম</span></header><main id=m></main><nav>${T.map(([k,i,l])=>`<button id=t-${k} onclick="go('${k}')">${ic(i)}<small>${l}</small>${k==='chats'?'<i id=bd class=dot hidden></i>':''}</button>`).join('')}</nav><div id=ov></div><div id=sh onclick="if(event.target===this)closeSh()"></div>`;at=me.role==='admin'?'users':'rep'}
+function go(t){tab=t;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.id==='t-'+t));({chats:viewChats,friends:viewFriends,notices:viewNotices,me:viewMe,admin:viewAdmin})[t]()}
+async function updBadge(){const {count}=await sb.from('messages').select('id',{count:'exact',head:true}).eq('receiver_id',me.id).is('read_at',null);const d=q('#bd');if(d)d.hidden=!count}
+function listen(){rt.forEach(c=>sb.removeChannel(c));
+const c=sb.channel('kalam').on('postgres_changes',{event:'*',schema:'public',table:'messages'},()=>{updBadge();if(chatWith)chatLoad();else if(tab==='chats'&&!q('#sh.on'))viewChats()})
+.on('postgres_changes',{event:'*',schema:'public',table:'friendships'},()=>{if(tab==='friends'&&!chatWith)friendList()})
+.on('postgres_changes',{event:'INSERT',schema:'public',table:'announcements'},()=>{toast('নতুন ঘোষণা এসেছে');if(tab==='notices')viewNotices()}).subscribe();rt=[c];updBadge()}
 
-// ---------- অথ ----------
-function setMode(s) {
-  signup = s;
-  $("#signupFields").classList.toggle("hide", !s);
-  $("#go").textContent = s ? "অ্যাকাউন্ট খুলুন" : "লগইন";
-  $("#sw").textContent = s ? "আগে থেকেই অ্যাকাউন্ট আছে? লগইন" : "নতুন অ্যাকাউন্ট খুলুন";
-  $("#msg").textContent = "";
-}
-$("#sw").onclick = e => { e.preventDefault(); setMode(!signup); };
+/* ---------- চ্যাট ---------- */
+async function viewChats(){const {data}=await sb.from('messages').select('*').order('created_at',{ascending:false}).limit(300);const g={};
+(data||[]).forEach(x=>{const o=x.sender_id===me.id?x.receiver_id:x.sender_id;g[o]??={last:x,un:0};if(x.receiver_id===me.id&&!x.read_at)g[o].un++});
+const ids=Object.keys(g);await lp(ids);if(tab!=='chats')return;
+q('#m').innerHTML=ids.length?ids.map(i=>`<div class=row onclick="openChat('${i}')">${av(P[i])}<div class=gr><b>${esc(P[i]?.full_name)}</b><small>${esc(g[i].last.content.slice(0,60))}</small></div>${g[i].un?`<span class=cnt>${g[i].un}</span>`:''}</div>`).join(''):'<p class=em>এখনো কোনো মেসেজ নেই। "বন্ধু" ট্যাবে গিয়ে কাউকে খুঁজে মেসেজ করুন।</p>'}
+async function openChat(uid){await lp([uid]);chatWith=uid;const p=P[uid];
+q('#ov').innerHTML=`<div class=scr><div class=hd><button class=ib onclick=closeOv()>${ic('back')}</button>${av(p,36)}<b class=gr onclick="openProfile('${uid}')">${esc(p?.full_name)}</b><button class=ib onclick=soon()>${ic('phone')}</button><button class=ib onclick=soon()>${ic('video')}</button></div><div id=ms class=ms></div><div id=ep class=ep hidden>${EM.map(e=>`<button onclick="ins('${e}')">${e}</button>`).join('')}</div><div class=cb><button class=ib onclick="q('#ep').hidden=!q('#ep').hidden">${ic('smile')}</button><input id=mi placeholder="মেসেজ লিখুন" maxlength=2000 onkeydown="if(event.key==='Enter')sendMsg()"><button class=sn onclick=sendMsg()>${ic('send',20)}</button></div></div>`;
+q('#ov').className='on';chatLoad()}
+function closeOv(){chatWith=null;q('#ov').className='';q('#ov').innerHTML='';go(tab)}
+const EM='😀 😃 😄 😁 😆 😊 🙂 😉 😍 🥰 😘 😇 🤲 🤝 🙏 👍 👌 ✌️ 💪 ❤️ 💚 🤍 🌙 ⭐ ✨ 🌹 🌸 🕌 📿 ☪️ 🎉 😂 🥹 😢 😭 😔 😮 😎 🤔 😴 🤗 👋 🍃 ☀️ 🌿 🤲'.split(' ');
+const ins=e=>{const i=q('#mi');i.value+=e;i.focus()};
+async function chatLoad(){if(!chatWith)return;const a=me.id,b=chatWith;
+const {data}=await sb.from('messages').select('*').or(`and(sender_id.eq.${a},receiver_id.eq.${b}),and(sender_id.eq.${b},receiver_id.eq.${a})`).order('created_at',{ascending:true}).limit(300);
+const el=q('#ms');if(!el)return;
+el.innerHTML=(data||[]).map(x=>{const mine=x.sender_id===a;return `<div class="bb ${mine?'me':''}"><span>${esc(x.content)}</span><small>${tm(x.created_at)} <a onclick="${mine?`delMsg('${x.id}')`:`rep('${b}','${x.id}')`}">${ic(mine?'trash':'flag',13)}</a></small></div>`}).join('')||'<p class=em>সালাম দিয়ে শুরু করুন 🌿</p>';
+el.scrollTop=el.scrollHeight;sb.from('messages').update({read_at:new Date().toISOString()}).eq('receiver_id',a).eq('sender_id',b).is('read_at',null).then(updBadge)}
+async function sendMsg(){const i=q('#mi'),t=i.value.trim();if(!t)return;i.value='';
+const {error}=await sb.from('messages').insert({sender_id:me.id,receiver_id:chatWith,content:t});if(error){i.value=t;return toast('পাঠানো যায়নি (ব্লক বা সাসপেন্ড হতে পারে)')}chatLoad()}
+async function delMsg(id){if(!confirm('মেসেজটি মুছবেন?'))return;await sb.from('messages').delete().eq('id',id);chatLoad()}
+async function rep(uid,mid){const r=prompt('রিপোর্টের কারণ লিখুন');if(!r||r.trim().length<3)return;
+const {error}=await sb.from('reports').insert({reporter_id:me.id,reported_user_id:uid,message_id:mid,reason:r.trim()});toast(error?'রিপোর্ট করা যায়নি':'রিপোর্ট জমা হয়েছে। ধন্যবাদ।')}
+async function blk(uid){if(!confirm('ব্লক করবেন? এরপর কেউ কাউকে মেসেজ করতে পারবে না।'))return;const {error}=await sb.from('blocks').insert({blocker_id:me.id,blocked_id:uid});toast(error?'ব্লক করা যায়নি':'ব্লক করা হয়েছে');closeSh()}
 
-$("#go").onclick = async () => {
-  const email = $("#em").value.trim(), password = $("#pw").value;
-  const msg = t => $("#msg").textContent = t;
-  if (!email || password.length < 6) return msg("ইমেইল ও কমপক্ষে ৬ অক্ষরের পাসওয়ার্ড দিন");
-  if (signup) {
-    const full_name = $("#fn").value.trim(), birth_date = $("#bd").value;
-    if (full_name.length < 2 || full_name.length > 60) return msg("নাম ২ থেকে ৬০ অক্ষরের মধ্যে হতে হবে");
-    if (!birth_date) return msg("জন্ম তারিখ দিন");
-    const { data, error } = await db.auth.signUp({
-      email, password,
-      options: { data: { full_name, birth_date, phone: $("#ph").value.trim() || null } }
-    });
-    if (error) return msg(error.message);
-    if (!data.session) return msg("ইমেইলে পাঠানো লিংকে ক্লিক করে নিশ্চিত করুন, তারপর লগইন করুন।");
-  } else {
-    const { error } = await db.auth.signInWithPassword({ email, password });
-    if (error) return msg("ইমেইল বা পাসওয়ার্ড ভুল");
-  }
-};
+/* ---------- প্রোফাইল শিট ---------- */
+const closeSh=()=>{q('#sh').className='';q('#sh').innerHTML=''};
+async function openProfile(uid){await lp([uid]);const p=P[uid];let fb='',ac='';
+if(uid!==me.id){const {data:f}=await sb.from('friendships').select('*').or(`and(requester_id.eq.${me.id},addressee_id.eq.${uid}),and(requester_id.eq.${uid},addressee_id.eq.${me.id})`).maybeSingle();
+fb=!f?`<button class=b onclick="addF('${uid}')">${ic('plus')} ফ্রেন্ড রিকুয়েস্ট পাঠান</button>`:f.status==='accepted'?'<span class=tag>বন্ধু ✓</span>':f.requester_id===me.id?'<span class=tag>রিকুয়েস্ট পাঠানো হয়েছে</span>':`<button class=b onclick="accF('${f.id}','${uid}')">${ic('check')} রিকুয়েস্ট গ্রহণ করুন</button>`;
+ac=`<button class=b onclick="closeSh();openChat('${uid}')">${ic('chat')} মেসেজ</button>${fb}<div class=ac style="justify-content:center"><button class=sm onclick="blk('${uid}')">${ic('ban',14)} ব্লক</button><button class=sm onclick="closeSh();rep('${uid}',null)">${ic('flag',14)} রিপোর্ট</button></div>`}
+q('#sh').innerHTML=`<div class=sheet>${av(p,90)}<h2 style="margin:8px 0">${esc(p?.full_name)}</h2>${p?.role!=='user'?`<span class=tag>${p.role==='admin'?'এডমিন':'মডারেটর'}</span>`:''}${ac}</div>`;q('#sh').className='on'}
+async function addF(uid){const {error}=await sb.from('friendships').insert({requester_id:me.id,addressee_id:uid});toast(error?'পাঠানো যায়নি':'রিকুয়েস্ট পাঠানো হয়েছে');openProfile(uid)}
+async function accF(id,uid){await sb.from('friendships').update({status:'accepted'}).eq('id',id);toast('এখন আপনারা বন্ধু');if(q('#sh.on'))openProfile(uid);if(tab==='friends')friendList()}
+async function rmF(id){if(!confirm('মুছে ফেলবেন?'))return;await sb.from('friendships').delete().eq('id',id);friendList()}
 
-$("#out").onclick = () => db.auth.signOut();
+/* ---------- বন্ধু ---------- */
+function viewFriends(){q('#m').innerHTML='<input id=s placeholder="নাম দিয়ে ইউজার খুঁজুন" oninput="srch(this.value)"><div id=sl></div><div id=fl></div>';friendList()}
+let sT;function srch(v){clearTimeout(sT);sT=setTimeout(async()=>{v=v.replace(/[%_,()*]/g,'').trim();if(v.length<2){q('#sl').innerHTML='';return friendList()}
+const {data}=await sb.from('profiles').select('id,full_name,avatar_url,role').neq('id',me.id).eq('status','active').ilike('full_name','%'+v+'%').limit(20);(data||[]).forEach(p=>P[p.id]=p);
+q('#fl').innerHTML='';q('#sl').innerHTML=(data||[]).map(p=>`<div class=row onclick="openProfile('${p.id}')">${av(p)}<b class=gr>${esc(p.full_name)}</b></div>`).join('')||'<p class=em>কাউকে পাওয়া যায়নি</p>'},300)}
+async function friendList(){const {data}=await sb.from('friendships').select('*').order('created_at',{ascending:false});const f=data||[];
+const oid=x=>x.requester_id===me.id?x.addressee_id:x.requester_id;await lp(f.map(oid));if(!q('#fl'))return;
+const inc=f.filter(x=>x.status==='pending'&&x.addressee_id===me.id),fr=f.filter(x=>x.status==='accepted'),sent=f.filter(x=>x.status==='pending'&&x.requester_id===me.id);
+const R=(x,btn)=>`<div class=row onclick="openProfile('${oid(x)}')">${av(P[oid(x)])}<b class=gr>${esc(P[oid(x)]?.full_name)}</b>${btn}</div>`;
+q('#fl').innerHTML=(inc.length?'<h3>আসা রিকুয়েস্ট</h3>'+inc.map(x=>R(x,`<button class=sm onclick="event.stopPropagation();accF('${x.id}','${oid(x)}')">${ic('check',16)}</button><button class=sm onclick="event.stopPropagation();rmF('${x.id}')">${ic('x',16)}</button>`)).join(''):'')
++'<h3>বন্ধুরা ('+fr.length+')</h3>'+(fr.map(x=>R(x,`<button class=sm onclick="event.stopPropagation();openChat('${oid(x)}')">${ic('chat',16)}</button>`)).join('')||'<p class=em>এখনো কোনো বন্ধু নেই। উপরে নাম লিখে খুঁজুন।</p>')
++(sent.length?'<h3>পাঠানো রিকুয়েস্ট</h3>'+sent.map(x=>R(x,`<button class=sm onclick="event.stopPropagation();rmF('${x.id}')">${ic('x',16)}</button>`)).join(''):'')}
 
-db.auth.onAuthStateChange((_e, session) => {
-  me = session?.user ?? null;
-  $("#auth").classList.toggle("hide", !!me);
-  $("#app").classList.toggle("hide", !me);
-  if (me) load();
-});
+/* ---------- ঘোষণা ও প্রোফাইল ---------- */
+async function viewNotices(){const {data}=await sb.from('announcements').select('*').order('created_at',{ascending:false}).limit(30);
+q('#m').innerHTML=(data||[]).map(a=>`<div class=card><b>${esc(a.title)}</b><small>${dt(a.created_at)}</small><p>${esc(a.body)}</p></div>`).join('')||'<p class=em>কোনো ঘোষণা নেই</p>'}
+async function viewMe(){const {data:pi}=await sb.from('private_info').select('*').eq('id',me.id).single();
+q('#m').innerHTML=`<div class=pf>${av(me,96)}<label class=cam>${ic('camera',18)}<input type=file accept="image/*" hidden onchange="upAv(this.files[0])"></label><input id=nm value="${esc(me.full_name)}" maxlength=60><button class=b onclick=saveNm()>নাম সংরক্ষণ</button><p class=mu>${esc(pi?.email||'')}<br>জন্মতারিখ: ${esc(pi?.birth_date||'')}</p><button class="b o" onclick=out()>${ic('logout')} লগআউট</button></div>`}
+async function saveNm(){const n=q('#nm').value.trim();if(n.length<2)return toast('নাম লিখুন');const {error}=await sb.from('profiles').update({full_name:n}).eq('id',me.id);if(error)return toast('সেভ হয়নি');me.full_name=n;P[me.id]=me;toast('সেভ হয়েছে')}
+async function upAv(f){if(!f)return;try{const img=await createImageBitmap(f),s=256,c=document.createElement('canvas');c.width=c.height=s;const m=Math.min(img.width,img.height);
+c.getContext('2d').drawImage(img,(img.width-m)/2,(img.height-m)/2,m,m,0,0,s,s);const blob=await new Promise(r=>c.toBlob(r,'image/jpeg',.82));const path=me.id+'/avatar.jpg';
+const {error}=await sb.storage.from('avatars').upload(path,blob,{upsert:true,contentType:'image/jpeg'});if(error)throw error;
+const url=sb.storage.from('avatars').getPublicUrl(path).data.publicUrl+'?v='+Date.now();
+const r=await sb.from('profiles').update({avatar_url:url}).eq('id',me.id);if(r.error)throw r.error;me.avatar_url=url;P[me.id]=me;viewMe();toast('ছবি যুক্ত হয়েছে')}catch(e){toast('ছবি আপলোড হয়নি')}}
 
-// ---------- ডাটা ----------
-async function load() {
-  const [p, f, b] = await Promise.all([
-    db.from("profiles").select("id,full_name").neq("id", me.id).order("full_name"),
-    db.from("friendships").select("*"),
-    db.from("blocks").select("blocked_id")
-  ]);
-  people = p.data || []; fr = f.data || []; bl = (b.data || []).map(x => x.blocked_id);
-  const mine = await db.from("profiles").select("full_name").eq("id", me.id).single();
-  $("#who").textContent = mine.data?.full_name || me.email;
-  db.from("profiles").update({ last_seen_at: new Date().toISOString() }).eq("id", me.id);
-  render();
-}
+/* ---------- এডমিন ---------- */
+async function viewAdmin(){const adm=me.role==='admin';const T=adm?[['users','ইউজার'],['rep','রিপোর্ট'],['ann','ঘোষণা'],['log','লগ']]:[['rep','রিপোর্ট']];if(!T.some(t=>t[0]===at))at='rep';
+q('#m').innerHTML=`<div class=st>${T.map(([k,l])=>`<button class="${k===at?'on':''}" onclick="at='${k}';viewAdmin()">${l}</button>`).join('')}</div><div id=ab></div>`;
+const h=await({users:admUsers,rep:admRep,ann:admAnn,log:admLog}[at])();if(q('#ab'))q('#ab').innerHTML=h}
+const uRows=a=>a.map(u=>`<div class=card><b>${esc(u.full_name)}</b> <span class=tag>${esc(u.role)}</span> ${u.status==='suspended'?'<span class="tag rd">সাসপেন্ড</span>':''}<small>${esc(u.email||'')} · ${esc(u.phone||'-')}<br>জন্ম: ${esc(u.birth_date)}</small><div class=ac>${u.role==='admin'?'':`<button class=sm onclick="susp('${u.id}','${u.status==='suspended'?'active':'suspended'}')">${u.status==='suspended'?'চালু করুন':'সাসপেন্ড'}</button>`}${u.id===me.id?'':`<select onchange="setRole('${u.id}',this.value)">${['user','moderator','admin'].map(r=>`<option ${r===u.role?'selected':''}>${r}</option>`).join('')}</select>`}</div></div>`).join('');
+async function admUsers(){const {data,error}=await sb.rpc('admin_list_users');if(error)return `<p class=em>${esc(error.message)}</p>`;AU=data;return `<h3>মোট ইউজার: ${data.length}</h3><input placeholder="নাম/ইমেইল খুঁজুন" oninput="fU(this.value)"><div id=ul>${uRows(data)}</div>`}
+const fU=v=>{v=v.toLowerCase();q('#ul').innerHTML=uRows(AU.filter(u=>(u.full_name+(u.email||'')).toLowerCase().includes(v)))};
+async function susp(id,st){let r=null;if(st==='suspended'){r=prompt('সাসপেন্ডের কারণ লিখুন');if(!r)return}const {error}=await sb.rpc('admin_set_status',{target:id,new_status:st,reason:r});toast(error?error.message:'সম্পন্ন');viewAdmin()}
+async function setRole(id,r){if(!confirm('রোল বদলাবেন: '+r+'?'))return viewAdmin();const {error}=await sb.rpc('admin_set_role',{target:id,new_role:r});toast(error?error.message:'রোল বদলেছে');viewAdmin()}
+async function admRep(){const {data}=await sb.from('reports').select('*').order('created_at',{ascending:false}).limit(50);const r=data||[];await lp(r.flatMap(x=>[x.reporter_id,x.reported_user_id]));
+return r.map(x=>`<div class=card><small>${esc(P[x.reporter_id]?.full_name)} → <b>${esc(P[x.reported_user_id]?.full_name)}</b> · ${esc(x.status)} · ${dt(x.created_at)}</small><p>${esc(x.reason)}</p><div class=ac><button class=sm onclick="viewRep('${x.id}')">কথোপকথন</button><button class=sm onclick="susp('${x.reported_user_id}','suspended')">সাসপেন্ড</button><button class=sm onclick="resRep('${x.id}')">নিষ্পত্তি</button></div></div>`).join('')||'<p class=em>কোনো রিপোর্ট নেই</p>'}
+async function viewRep(id){const {data,error}=await sb.rpc('admin_get_reported_chat',{p_report_id:id});if(error)return toast(error.message);const m=(data||[]).slice().reverse();await lp(m.map(x=>x.sender_id));
+q('#sh').innerHTML=`<div class=sheet style="text-align:left"><h3>রিপোর্ট হওয়া কথোপকথন (শেষ ৩০টি)</h3><small class=mu>এই দেখা অডিট লগে জমা হয়েছে</small>${m.map(x=>`<div class=card><small>${esc(P[x.sender_id]?.full_name)} · ${dt(x.created_at)}</small><p>${esc(x.content)}</p></div>`).join('')}<button class=b onclick=closeSh()>বন্ধ করুন</button></div>`;q('#sh').className='on'}
+async function resRep(id){const n=prompt('নোট (ঐচ্ছিক)')||null;await sb.from('reports').update({status:'resolved',admin_note:n}).eq('id',id);viewAdmin()}
+async function admAnn(){const {data}=await sb.from('announcements').select('*').order('created_at',{ascending:false}).limit(30);
+return `<div class=card><input id=an_t placeholder="শিরোনাম" maxlength=120><textarea id=an_b rows=3 placeholder="ঘোষণা লিখুন" maxlength=4000></textarea><button class=b onclick=pubAnn()>প্রকাশ করুন</button></div>`+(data||[]).map(a=>`<div class=card><b>${esc(a.title)}</b><p>${esc(a.body)}</p><button class=sm onclick="delAnn('${a.id}')">মুছুন</button></div>`).join('')}
+async function pubAnn(){const title=q('#an_t').value.trim(),body=q('#an_b').value.trim();if(!title||!body)return toast('শিরোনাম ও লেখা দিন');const {error}=await sb.from('announcements').insert({title,body});toast(error?error.message:'প্রকাশিত হয়েছে');viewAdmin()}
+async function delAnn(id){if(!confirm('মুছবেন?'))return;await sb.from('announcements').delete().eq('id',id);viewAdmin()}
+async function admLog(){const {data}=await sb.from('audit_logs').select('*').order('created_at',{ascending:false}).limit(100);const l=data||[];await lp(l.flatMap(x=>[x.actor_id,x.target_user_id]));
+return l.map(x=>`<div class=card><small>${dt(x.created_at)}</small><b>${esc(P[x.actor_id]?.full_name)}</b> · ${esc(x.action)} → ${esc(P[x.target_user_id]?.full_name||'')}<small>${esc(x.details||'')}</small></div>`).join('')||'<p class=em>লগ খালি</p>'}
 
-const rel = id => fr.find(x => (x.requester_id === me.id && x.addressee_id === id) || (x.addressee_id === me.id && x.requester_id === id));
-const nameOf = id => people.find(p => p.id === id)?.full_name || "অজানা";
-
-// ---------- UI ----------
-function item(name, btns) {
-  return `<div class="card row"><b>${esc(name)}</b><div class="acts">${btns}</div></div>`;
-}
-const B = (act, id, label, cls = "") => `<button class="${cls}" data-a="${act}" data-id="${esc(id)}">${label}</button>`;
-
-function render() {
-  const q = $("#q").value.trim().toLowerCase();
-  const hit = n => !q || n.toLowerCase().includes(q);
-  let h = "";
-  const incoming = fr.filter(x => x.status === "pending" && x.addressee_id === me.id && !bl.includes(x.requester_id));
-  $("#rc").textContent = incoming.length ? `(${incoming.length})` : "";
-
-  if (tab === "people") {
-    people.filter(p => !bl.includes(p.id) && hit(p.full_name)).forEach(p => {
-      const r = rel(p.id);
-      let b = B("add", p.id, "অনুরোধ পাঠান");
-      if (r?.status === "accepted") b = `<span class="mut">বন্ধু</span>`;
-      else if (r?.requester_id === me.id) b = `<span class="mut">পাঠানো হয়েছে</span>`;
-      else if (r) b = B("acc", r.id, "গ্রহণ");
-      h += item(p.full_name, b + B("blk", p.id, "ব্লক", "g"));
-    });
-  } else if (tab === "req") {
-    incoming.forEach(x => h += item(nameOf(x.requester_id), B("acc", x.id, "গ্রহণ") + B("del", x.id, "বাদ", "g")));
-  } else if (tab === "friends") {
-    fr.filter(x => x.status === "accepted").forEach(x => {
-      const o = x.requester_id === me.id ? x.addressee_id : x.requester_id;
-      if (hit(nameOf(o)) && !bl.includes(o)) h += item(nameOf(o), B("del", x.id, "বন্ধুত্ব শেষ", "g") + B("blk", o, "ব্লক", "r"));
-    });
-  } else {
-    bl.forEach(id => h += item(nameOf(id), B("unb", id, "আনব্লক", "g")));
-  }
-  $("#list").innerHTML = h || `<p class="mut">কিছু নেই</p>`;
-}
-
-$("#tabs").onclick = e => {
-  const t = e.target.closest("button")?.dataset.t; if (!t) return;
-  tab = t;
-  document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.t === t));
-  render();
-};
-$("#q").oninput = render;
-
-$("#list").onclick = async e => {
-  const b = e.target.closest("button"); if (!b) return;
-  const { a, id } = b.dataset;
-  b.disabled = true;
-  let r;
-  if (a === "add") r = await db.from("friendships").insert({ requester_id: me.id, addressee_id: id });
-  else if (a === "acc") r = await db.from("friendships").update({ status: "accepted" }).eq("id", id);
-  else if (a === "del") r = await db.from("friendships").delete().eq("id", id);
-  else if (a === "blk") {
-    if (!confirm("ব্লক করবেন?")) { b.disabled = false; return; }
-    const f = rel(id);
-    if (f) await db.from("friendships").delete().eq("id", f.id);
-    r = await db.from("blocks").insert({ blocker_id: me.id, blocked_id: id });
-  } else if (a === "unb") r = await db.from("blocks").delete().eq("blocker_id", me.id).eq("blocked_id", id);
-  if (r?.error) alert("সমস্যা: " + r.error.message);
-  load();
-};
-
-setMode(false);
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+boot();
 </script>
 </body>
 </html>
