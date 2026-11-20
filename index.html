@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0f5c4d">
+<meta name="color-scheme" content="light dark">
 <title>কালাম</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon.svg">
@@ -22,7 +23,7 @@ nav button{flex:1;background:none;border:0;color:var(--mu);display:flex;flex-dir
 nav button.on{color:var(--g2)}nav small{font-size:11px}
 .dot{position:absolute;top:6px;left:56%;width:9px;height:9px;border-radius:50%;background:var(--er)}
 input,select,textarea{width:100%;padding:12px;border:1px solid var(--bd);border-radius:12px;background:var(--card);color:var(--tx);font:inherit;margin:6px 0}
-.b{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff;font:inherit;font-weight:700;margin:6px 0}
+.b{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:12px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--g),var(--g2));color:#fff!important;font:inherit;font-weight:700;margin:6px 0}
 .b.o{background:none;border:1px solid var(--er);color:var(--er)}
 .sm{padding:6px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--card);color:var(--tx);font:inherit;font-size:13px}
 .row{display:flex;align-items:center;gap:12px;padding:10px;background:var(--card);border-radius:14px;margin-bottom:8px;border:1px solid var(--bd)}
@@ -93,8 +94,8 @@ async function doReg(){const n=q('#n').value.trim(),b=q('#d').value,email=q('#e'
 const lim=new Date();lim.setFullYear(lim.getFullYear()-13);
 if(n.length<2)return setMsg('নাম লিখুন');if(!b)return setMsg('জন্মতারিখ দিন');if(new Date(b)>lim)return setMsg('ন্যূনতম বয়স ১৩ বছর');
 if(!email)return setMsg('ইমেইল দিন');if(password.length<8)return setMsg('পাসওয়ার্ড কমপক্ষে ৮ অক্ষর');
-const {error}=await sb.auth.signUp({email,password,options:{data:{full_name:n,birth_date:b}}});
-if(error)return setMsg(error.message);pend={email};auth('otp','আপনার ইমেইলে কোড পাঠানো হয়েছে (স্প্যামও দেখুন)')}
+const {data,error}=await sb.auth.signUp({email,password,options:{data:{full_name:n,birth_date:b}}});
+if(error)return setMsg(error.message);if(data&&data.session)return boot();pend={email};auth('otp','আপনার ইমেইলে কোড পাঠানো হয়েছে (স্প্যামও দেখুন)')}
 async function resend(){const {error}=await sb.auth.resend({type:'signup',email:pend.email});setMsg(error?error.message:'নতুন কোড পাঠানো হয়েছে')}
 async function doOtp(){const {error}=await sb.auth.verifyOtp({email:pend.email,token:q('#c').value.trim(),type:'signup'});if(error)return setMsg('কোড ভুল বা মেয়াদ শেষ');boot()}
 async function doForgot(){const email=q('#e').value.trim();if(!email)return setMsg('ইমেইল দিন');const {error}=await sb.auth.resetPasswordForEmail(email);if(error)return setMsg(error.message);pend={email};auth('rec','কোড পাঠানো হয়েছে')}
